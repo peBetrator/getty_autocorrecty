@@ -1,5 +1,4 @@
-import { AxiosResponse } from 'axios';
-import { MultiResponse, SearchOptions } from 'giphy-api';
+import { GIFObject, SearchOptions } from 'giphy-api';
 import { useCallback, useState } from 'react';
 import { useQuery } from 'react-query';
 
@@ -9,15 +8,16 @@ import { SearchParams } from './types';
 
 type UseSearch = {
   fetch: ({ search }: SearchParams) => void;
-  data?: AxiosResponse<MultiResponse>;
+  data?: GIFObject[];
   isLoading: boolean;
   isFetching: boolean;
+  isSuccess: boolean;
 };
 
 export default function useSearch(): UseSearch {
   const [params, setParams] = useState({} as SearchOptions);
 
-  const { data, isLoading, isFetching } = useQuery(
+  const { data, isLoading, isFetching, isSuccess } = useQuery(
     [ServerStateKeys.SEARCH, params],
     () => search(params),
     {
@@ -31,5 +31,5 @@ export default function useSearch(): UseSearch {
     }
   }, []);
 
-  return { fetch, data, isLoading, isFetching };
+  return { fetch, data: data?.data.data, isLoading, isFetching, isSuccess };
 }

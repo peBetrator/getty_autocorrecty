@@ -1,18 +1,27 @@
-import { FormEvent, useState } from 'react';
+import {
+  FormEvent,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import styled from 'styled-components';
+
+import { useGifs } from '../../context';
 import { useSearch } from '../../hooks';
 
 const InputWrapper = styled.form`
   display: grid;
   width: 100%;
-  min-height: 500px;
+  min-height: 50vh;
   place-items: center;
-  background: url('/assets/bg.png');
+  background-color: #000;
   background-size: cover;
 `;
 
 const InputBox = styled.input`
-  width: 16em;
+  width: 50vw;
+  max-width: 16em;
   height: 1.5em;
 
   margin: 1em auto;
@@ -32,19 +41,30 @@ const InputBox = styled.input`
   }
 `;
 
-export default function Input() {
+export default function Input(): ReactElement {
   const [searchValue, setSeachValue] = useState('');
 
-  const { fetch } = useSearch();
+  const { setGifs } = useGifs();
+  const { fetch, isSuccess, data } = useSearch();
+
+  useEffect(() => {
+    if (isSuccess && data) setGifs(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
+
+  const onSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+
+      setSeachValue('');
+      fetch({ search: searchValue });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [searchValue]
+  );
 
   return (
-    <InputWrapper
-      onSubmit={(e: FormEvent) => {
-        e.preventDefault();
-        setSeachValue('');
-        fetch({ search: searchValue });
-      }}
-    >
+    <InputWrapper onSubmit={onSubmit}>
       <InputBox
         value={searchValue}
         onChange={(e: FormEvent<HTMLInputElement>) =>
