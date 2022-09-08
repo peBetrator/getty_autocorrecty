@@ -57,7 +57,7 @@ export default function Input(): ReactElement {
       e.preventDefault();
 
       setSeachValue('');
-      fetch({ search: searchValue });
+      fetch({ search: searchValue, limit: 20 });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchValue]

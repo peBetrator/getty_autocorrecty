@@ -25,9 +25,9 @@ export default function useSearch(): UseSearch {
     }
   );
 
-  const fetch = useCallback(({ search }: SearchParams) => {
+  const fetch = useCallback(({ search, ...rest }: SearchParams) => {
     if (search) {
-      setParams({ q: search, rating: 'g' });
+      setParams({ q: search, rating: 'g', ...rest });
     }
   }, []);
 
