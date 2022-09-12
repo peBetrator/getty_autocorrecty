@@ -44,22 +44,28 @@ const InputBox = styled.input`
 export default function Input(): ReactElement {
   const [searchValue, setSeachValue] = useState('');
 
-  const { setGifs } = useGifs();
-  const { fetch, isSuccess, data } = useSearch();
+  const { setGifs, gifs, fetchMore } = useGifs();
+  const { fetch, fetchNextPage, data } = useSearch();
 
   useEffect(() => {
-    if (isSuccess && data) setGifs(data);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
+    if (data && data.length > gifs.length) {
+      setGifs(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (fetchMore) {
+      fetchNextPage();
+    }
+  }, [fetchMore]);
 
   const onSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
 
       setSeachValue('');
-      fetch({ search: searchValue, limit: 20 });
+      fetch({ search: searchValue, limit: 10 });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchValue]
   );
 

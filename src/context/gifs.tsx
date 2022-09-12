@@ -11,6 +11,8 @@ import {
 
 interface IGifsContext {
   gifs: GIFObject[];
+  fetchMore: boolean;
+  setFetchMore: Dispatch<SetStateAction<boolean>>;
   setGifs: Dispatch<SetStateAction<GIFObject[]>>;
 }
 
@@ -24,9 +26,10 @@ export const GifsProvider = ({
   children: ReactNode;
 }): ReactElement => {
   const [gifs, setGifs] = useState<GIFObject[]>([]);
+  const [fetchMore, setFetchMore] = useState(false);
 
   return (
-    <GifsContext.Provider value={{ gifs, setGifs }}>
+    <GifsContext.Provider value={{ gifs, fetchMore, setGifs, setFetchMore }}>
       {children}
     </GifsContext.Provider>
   );

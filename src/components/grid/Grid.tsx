@@ -1,4 +1,4 @@
-import { MutableRefObject, ReactElement, useRef } from 'react';
+import { MutableRefObject, ReactElement, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import { useGifs } from '../../context';
@@ -25,12 +25,14 @@ const LastRow = styled.div`
 `;
 
 export default function Grid(): ReactElement {
-  const { gifs } = useGifs();
+  const { gifs, setFetchMore } = useGifs();
 
   const lastRowRef = useRef<HTMLDivElement>();
   const isLastSoon = useIntercectionObserver(lastRowRef);
 
-  console.log(isLastSoon);
+  useEffect(() => {
+    setFetchMore(!!gifs.length && isLastSoon);
+  }, [isLastSoon]);
 
   return (
     <Wrapper>
