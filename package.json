@@ -1,6 +1,8 @@
 {
   "name": "getty-autocorrect",
   "version": "0.1.0",
+  "repository": "https://github.com/peBetrator/getty_autocorrecty.git",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
     "react": "^18.2.0",
@@ -17,7 +19,8 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-query": "^1.2.9",
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "eslint-plugin-react-hooks": "^4.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
