@@ -8,6 +8,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  min-height: 50vh;
+  background-color: ${props => props.theme.secondaryBg};
 `;
 
 const Gif = styled.img`
@@ -22,6 +24,7 @@ const LastRow = styled.div`
   width: 100%;
   height: 1px;
   background: red;
+  align-self: flex-end;
 `;
 
 export default function Grid(): ReactElement {

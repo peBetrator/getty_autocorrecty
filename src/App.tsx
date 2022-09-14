@@ -1,11 +1,14 @@
-import { Grid, Input } from './components';
-import { GifsProvider } from './context';
+import { Grid } from './components/atoms';
+import { Header } from './components/templates';
+import { GifsProvider, ThemeToggleProvider } from './context';
 
 export default function App(): React.ReactElement {
   return (
-    <GifsProvider>
-      <Input />
-      <Grid />
-    </GifsProvider>
+    <ThemeToggleProvider>
+      <GifsProvider>
+        <Header />
+        <Grid />
+      </GifsProvider>
+    </ThemeToggleProvider>
   );
 }

@@ -11,12 +11,7 @@ import { useGifs } from '../../context';
 import { useSearch } from '../../hooks';
 
 const InputWrapper = styled.form`
-  display: grid;
-  width: 100%;
-  min-height: 50vh;
-  place-items: center;
-  background-color: #000;
-  background-size: cover;
+  justify-self: center;
 `;
 
 const InputBox = styled.input`
